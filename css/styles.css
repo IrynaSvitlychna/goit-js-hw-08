@@ -25,3 +25,8 @@ body {
 .gallery-item {
   flex-basis: calc((100% - 24px * 2) / 3);
 }
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+}

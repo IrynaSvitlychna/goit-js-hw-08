@@ -66,14 +66,12 @@ const images = [
 
 
 const galleryList = document.querySelector(".gallery");
-// galleryList.classList.add("set");
+
 
 const gallery = images.map(({ preview, original, description }) => `
 <li class="gallery-item">
 <a class="gallery-link" href="${original}">
-  <img
-  width="360"
-  height="200"
+  <img 
     class="gallery-image"
     src="${preview}"
     data-source="${original}"
