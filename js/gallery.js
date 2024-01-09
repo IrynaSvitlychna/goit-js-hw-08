@@ -65,38 +65,32 @@ const images = [
 ];
 
 
-const list = document.querySelector(".gallery");
-list.classList.add("set");
+const galleryList = document.querySelector(".gallery");
+// galleryList.classList.add("set");
 
-const gallery = images.map((image) => {
+const gallery = images.map(({ preview, original, description }) => `
+<li class="gallery-item">
+<a class="gallery-link" href="${original}">
+  <img
+  width="360"
+  height="200"
+    class="gallery-image"
+    src="${preview}"
+    data-source="${original}"
+    alt="${description}"
+  />
+</a>
+</li>`
   
-
-    const liG = document.createElement("li");
-    liG.classList.add("set-item");
-    liG.classList.add("gallery-item");
+).join("");
+  
+ galleryList.insertAdjacentHTML(`beforeend`, gallery);
 
   
-    const aG = document.createElement("a");
-    aG.classList.add("gallery-link");
-    aG.href = images.original; 
-
-
-    const imageG = document.createElement("img");
-    imageG.classList.add("gallery-image");
-    imageG.src = image.preview;
-    imageG.alt = image.description;
-    imageG.dataset.source = image.original;
-    imageG.width = "360";
-    imageG.height = "200";
-
-    return list.appendChild(liG.appendChild(aG.appendChild(imageG)));
-  }).join("");
-  
-  const ulGallery = document.querySelector("ul.gallery");
- 
-       ulGallery.addEventListener("click", (event) => {
+       galleryList.addEventListener("click", (event) => {
         event.preventDefault();
-        const imageLink = event.target.dataset;
+        const imageLink = event.target.dataset.source;
+        const description = event.target.alt;
         console.log(imageLink);
 
         if (event.target.nodeName !== "IMG") return;
@@ -111,14 +105,17 @@ const gallery = images.map((image) => {
                 document.removeEventListener("keydown", keyDwn)
               }
             });
-            window.show()
-        });
+            window.show();
+
+            function keyDwn (event) {
+              if (event.key === "Escape") {
+                window.close()
+              }
+            }
+          });
         
-        function keyDwn (event) {
-if (event.key === "Escape") {
-  window.close()
-}
-        }
+        
+      
      
 
    
